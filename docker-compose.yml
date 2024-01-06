@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  verteilte-lab-app:
+    container_name: myapp-spring
+    image: springboot-app
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql-service
+
+  mysql-service:
+    container_name: myapp-mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: 'fochit00'
+      MYSQL_PASSWORD: 1234
+    ports:
+      - 3307:3306
